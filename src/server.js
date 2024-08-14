@@ -4,6 +4,9 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5001;
 
+const bookRoutes = require("./routes/bookroutes");
+const Book = require("./models/book")
+
 app.use(express.json());
 app.listen(port, () => console.log(`Server started on port ${port}`));
 app.get("/", (req, res) => {
@@ -11,3 +14,13 @@ app.get("/", (req, res) => {
     msg: "Server API ready"
   });
 });
+
+app.use(bookRoutes);
+
+function syncTables() {
+    Book.sync({
+      alter:true
+    })
+}
+
+syncTables();

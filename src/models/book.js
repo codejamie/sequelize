@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const SQLconnection = require("../connection.js")
+const SQLconnection = require("../db/connection.js")
 
 const Book = SQLconnection.define("Book", {
     id: {

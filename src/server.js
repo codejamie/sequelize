@@ -4,8 +4,13 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5001;
 
-const bookRoutes = require("./routes/bookroutes");
+// Books
+const bookRoutes = require("./routes/bookRoutes");
 const Book = require("./models/book")
+
+// Authors
+const authorRoutes = require("./routes/authorRoutes");
+const Author = require("./models/author")
 
 app.use(express.json());
 app.listen(port, () => console.log(`Server started on port ${port}`));
@@ -16,10 +21,14 @@ app.get("/", (req, res) => {
 });
 
 app.use(bookRoutes);
+app.use(authorRoutes);
 
 function syncTables() {
     Book.sync({
       alter:true
+    }),
+    Author.sync({
+      alter: true
     })
 }
 

@@ -2,10 +2,6 @@ const Book = require("../models/book");
 
 const createBook = async (req, res) => {
   try {
-    // const book = await Book.create({
-    //   title: req.body.title,
-    //   genre: req.body.genre
-    // }) 
     const book = await Book.create(req.body);
     res.status(201).json({ message: "Book added successfully", book });
   } catch (error) {
@@ -17,7 +13,6 @@ const createBook = async (req, res) => {
 const listBooks = async (req, res) => {
   try {
     const books = await Book.findAll();
-
     res.status(201).json({ books });
   } catch (error) {
     res.status(501).json({ message: error.message, error: error });
@@ -67,14 +62,32 @@ const editBook = async (req, res) => {
 // Delete a specific book by id 
 const deleteBook = async (req, res) => {
   try {
-    const { id } = req.params;
-
+    const id = req.query.id;
     const deletedBook = await Book.destroy({
       where: { id: id },
+    });
+    if (deletedBook) {
+      return res.status(200).json({ message: "Book deleted successfully" });
+    } else {
+      return res.status(404).json({ message: "Book not found" });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+// Delete a specific book by id 
+const deleteBookByTitle = async (req, res) => {
+  try {
+    const title = req.query.title;
+    const deletedBook = await Book.destroy({
+      where: {title: title}
     });
 
     if (deletedBook) {
       return res.status(200).json({ message: "Book deleted successfully" });
+    } else {
+      return res.status(404).json({ message: "Book not found" });
     }
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -105,5 +118,6 @@ module.exports = {
   getBookByTitle: getBookByTitle,
   editBook: editBook,
   deleteBook: deleteBook,
+  deleteBookByTitle: deleteBookByTitle,
   deleteAllBooks: deleteAllBooks,
 };

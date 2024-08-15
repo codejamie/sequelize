@@ -36,9 +36,12 @@ const getBookByTitle = async (req, res) => {
 // Get a specific book by it's unique id
 const getBook = async (req, res) => {
   try {
-    const book = await Book.findOne({ where: { id: req.query.id } });
-
-    res.status(200).json({ book });
+    const book = await Book.findOne({ where: { id: req.query.id } });   
+    if (book) {
+      res.status(200).json({ book });
+    } else {
+      return res.status(404).json({ message: "Book id not found" });
+    }
   } catch (error) {
     res.status(500).json({ message: error.message, error: error });
   }

@@ -76,7 +76,7 @@ const deleteBook = async (req, res) => {
   }
 };
 
-// Delete a specific book by id 
+// Delete a specific book by title 
 const deleteBookByTitle = async (req, res) => {
   try {
     const title = req.query.title;

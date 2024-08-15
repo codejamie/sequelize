@@ -22,9 +22,12 @@ const listBooks = async (req, res) => {
 // Get a specific book by it's title
 const getBookByTitle = async (req, res) => {
   try {
-    const book = await Book.findOne({ where: { title: req.params.title } });
-
-    res.status(200).json({ book });
+    const book = await Book.findOne({ where: { title: req.query.title } });
+    if (book) {
+      return res.status(200).json({ book });
+    } else {
+      return res.status(404).json({ message: "Book title not found" });
+    }
   } catch (error) {
     res.status(501).json({ message: error.message, error: error });
   }
@@ -33,7 +36,7 @@ const getBookByTitle = async (req, res) => {
 // Get a specific book by it's unique id
 const getBook = async (req, res) => {
   try {
-    const book = await Book.findOne({ where: { id: req.body.id } });
+    const book = await Book.findOne({ where: { id: req.query.id } });
 
     res.status(200).json({ book });
   } catch (error) {

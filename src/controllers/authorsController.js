@@ -118,10 +118,12 @@ const deleteAllAuthors = async (req, res) => {
 };
 
 module.exports = {
+  createAuthor: createAuthor,
+  listAuthors: listAuthors,
   getAuthor: getAuthor,
-  getAuthorByTitle: getAuthorByTitle,
+  getAuthorByTitle: getAuthorByName,
   editAuthor: editAuthor,
   deleteAuthor: deleteAuthor,
-  deleteAuthorByTitle: deleteAuthorByTitle,
+  deleteAuthorByTitle: deleteAuthorByName,
   deleteAllAuthors: deleteAllAuthors,
 };

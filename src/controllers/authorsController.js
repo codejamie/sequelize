@@ -121,9 +121,9 @@ module.exports = {
   createAuthor: createAuthor,
   listAuthors: listAuthors,
   getAuthor: getAuthor,
-  getAuthorByTitle: getAuthorByName,
+  getAuthorByName: getAuthorByName,
   editAuthor: editAuthor,
   deleteAuthor: deleteAuthor,
-  deleteAuthorByTitle: deleteAuthorByName,
+  deleteAuthorByName: deleteAuthorByName,
   deleteAllAuthors: deleteAllAuthors,
 };

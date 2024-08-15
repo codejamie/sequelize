@@ -44,15 +44,17 @@ const getBook = async (req, res) => {
 // Edit and update a book
 const editBook = async (req, res) => {
   try {
-    const { id } = req.params;
-    const data = req.body;
+    const id  = req.query.id //req.params;
+    const body = req.body;
 
-    const editedBook = await Book.update(data, {
+    const editedBook = await Book.update(body, {
       where: { id: id },
     });
 
-    if (updated) {
+    if (editedBook) {
       return res.status(200).json({ book: editedBook });
+    } else {
+      return res.status(422).json({ message: "Unprocessable Content" });
     }
   } catch (error) {
     return res.status(500).json({ error: error.message });
